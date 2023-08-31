@@ -5,9 +5,9 @@ public class LinkedDS<T> implements SequenceInterface<T> {
     private int size; //the number of items in the sequence
     private T[] alphabet; //the possible item values (e.g., the decimal digits)
     private T firstItem; //the first item
-    private T lastItem; //the last item\
-	private Node firstNode; // to be able to keep track of nodes
-	private Node addedNode;//  ^
+    private T lastItem; //the last item
+	private Node firstNode; // to keep track of nodes
+	private Node addedNode;//  Most recently added node, also the last node
 
     public LinkedDS(T[] alphabet){
 		int size = 0;
@@ -42,9 +42,6 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 			size ++;
 			 
 		} 
-	//	if( array[constantRuntimeHelper(firstItem)] == null && array[constantRuntimeHelper(item)] == null){
-
-	//	}
 
 	}
 
@@ -88,8 +85,8 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 			result = true;
 
 		}
-        return result;
-    }
+       			 return result;
+    	}
 
 	/** Return the number of items in the sequence in O(1) time
 	 * @return the number of items currently in the sequence
@@ -131,8 +128,8 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 			} 
 		
 		}
-			if(item.equals(lastItem) ){
-					result++;
+		if(item.equals(lastItem) ){
+			result++;
 			
 	
 		}
@@ -149,14 +146,14 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 	 * @return the number of occurences in the sequence of (first, second)
 	 */
 	public int getFrequencyOf(T first, T second){
-        Node addedNode;
+		Node addedNode;
 		int count = 0;
 		firstNode = array[constantRuntimeHelper(first)];
 
-			while(firstNode != null){
-				if(firstNode.item == constantRuntimeHelper(second) ){
+		while(firstNode != null){
+			if(firstNode.item == constantRuntimeHelper(second) ){
 					count++;
-				}
+			}
 				addedNode = firstNode.next;
 				firstNode = addedNode;
 
@@ -166,63 +163,9 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 		return count;
     }
 
-	/**
-	 * Returns an array of all unique successors of an item in the sequence.
-	 * The running time is O(frequency of item in sequence * number of 
-     * predecessors)
-	 * @param item an item
-	 * @return an array of all unique predecessors of item or null if 
-     * item doesn't exist in the sequence.
-	 */
-	public T[] successors(T item){
-			int count = getFrequencyOf(item);
-			int index = 0;
-			Node addedNode;
-			firstNode = array[constantRuntimeHelper(item)];
-			
-		@SuppressWarnings("unchecked")
-		T[] results= (T[])new Object[count];
-		
-
-
-		if(firstNode == null){
-				return null;
-		}
-		for( firstNode = firstNode; firstNode != null; firstNode = firstNode.next){
-				results[index] = alphabet[firstNode.item];
-				index++;
-		}
-		int count2 = results.length;
-			for(int i =0; i<results.length;i++){
-				for(int j =i+1; j<results.length;j++){
-						if(results[i] == results[j]){
-							results[i] = null;
-							count2--;
-						}
-				}
-			}
-			@SuppressWarnings("unchecked")
-		T[] finalResults= (T[])new Object[count2];
-			
-				int tracker=0;
-			for(int p = 0; p< results.length;p++){
-				if(results[p] != null){
-				finalResults[tracker] = results[p];
-				tracker++;
-			}
-		
-
-			}
-		
 	
-		return finalResults;
-		
-		
-	
-	}
-
-
-	// this will provide which linked list to iterate and return its length/ get used for removing or adding to the individual linked lists
+	// this will provide which linked list to iterate and return its length/ gets used for removing or adding to the individual linked lists
+	// Called constantRuntimeHelper becuase there was a runtime requirement for the assignment and I thought I was clever.
 	public int constantRuntimeHelper(T item){
 			int desiredIndex =0;
 			for(int i=0; i<alphabet.length;i++){
@@ -233,7 +176,8 @@ public class LinkedDS<T> implements SequenceInterface<T> {
 
 			return desiredIndex;
 	}
-
+	
+	// Node Class
     private static class Node {
         private int item; //index in alphabet of item
         private Node next;
