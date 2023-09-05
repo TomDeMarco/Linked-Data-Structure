@@ -1,4 +1,4 @@
-This data structure is an array of Linkedlists.
+This data structure is an array of linkedlists.
 
 Background:
 Molecules of DNA can be broken down into pairs of 4 different basis known as Adenine(A), Cytosine(C), Guanine(G), and Thymine(T). This program was designed to take a DNA molecule represented by a long string of basies, and count the different pairs that exist in that molecule of DNA.
