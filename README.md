@@ -10,5 +10,7 @@ Analysis:
 Using array indexes to represent the different bases made the following runtimes and operations possible:
 
 -Total amount of occurances of each base can be counted by checking the length of the linkedlist at that index O(n)
+
 -Amount of times a specific pair occurs in a molecule(AT,GT,etc) is counted by checking the data within each node of that bases's list O(n)
+
 -Adding a new node to any of the lists O(1)
